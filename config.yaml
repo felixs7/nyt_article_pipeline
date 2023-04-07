@@ -1,0 +1,6 @@
+allowed_env_values:
+  - prod
+  - qa
+
+bucket_name_prod: nyt-project-bucket-prod
+bucket_name_qa: nyt-project-bucket-qa

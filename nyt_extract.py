@@ -5,13 +5,14 @@ from datetime import datetime
 from dotenv import load_dotenv
 from pathlib import Path
 import requests
+import logging
 from botocore.exceptions import ClientError
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 
-
+logger = logging.getLogger("airflow.task")
 
 def get_api_creds(**context) -> str:
-    print("Fetching creds")
+    logger.info("Fetching creds")
     parent_dir = Path(__file__).resolve().parent.parent
     env_path = parent_dir / ".env"
     load_dotenv(dotenv_path=env_path)
@@ -25,7 +26,7 @@ def store_nyt_raw(bucket_name:str,period=1, **context) -> str:
     params = {"api-key": api_key}
     response = requests.get(url, params=params)
     if response.status_code != 200:
-        print("Error: ", response.status_code)
+        logger.error("Error: ",  response.status_code)
         raise ValueError('API returned an error')
     
     folder = 'raw'
@@ -38,7 +39,7 @@ def store_nyt_raw(bucket_name:str,period=1, **context) -> str:
             key=file_key,
             replace=True
         )
-
         return file_key
     except ClientError as e:
-        raise Exception("Failed to store data in S3: {}".format(str(e)))
+        logger.error("Failed to store data in S3: {}".format(str(e)))
+        raise
