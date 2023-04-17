@@ -6,13 +6,17 @@ from dotenv import load_dotenv
 from pathlib import Path
 import requests
 import logging
+import pytz
 from botocore.exceptions import ClientError
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 
 logger = logging.getLogger("airflow.task")
 
 def get_api_creds(**context) -> str:
+    tz = pytz.timezone('Europe/Dublin')
     logger.info("Fetching creds")
+    logger.info(f"Local Time in Dublin: {datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S %Z%z')}")
+    logger.info(f"System Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S %Z%z')}")
     parent_dir = Path(__file__).resolve().parent.parent
     env_path = parent_dir / ".env"
     load_dotenv(dotenv_path=env_path)

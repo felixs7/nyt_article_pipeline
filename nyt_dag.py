@@ -20,12 +20,13 @@ bucket_name = config[f"bucket_name_{env}"]
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
-    'start_date': datetime(2023, 4, 1),
+    'start_date': datetime(2023, 4, 13),
     'email': ['airflow@example.com'],
     'email_on_failure': True,
     'email_on_retry': False,
+    'max_active_runs':1,
     'retries': 1,
-    'retry_delay': timedelta(minutes=1),
+    'retry_delay': timedelta(minutes=5),
     'catchup': False,
     'dagrun_timeout': timedelta(hours=0.2),
 }
@@ -34,7 +35,7 @@ dag = DAG(
     'nyt_dag',
     default_args=default_args,
     description="NYT ETL process",
-    schedule_interval='0 0 * * *'  # Runs every day at midnight
+    schedule_interval='0 3 * * *', # Runs every day at 03:00 UTC
 )
 
 
