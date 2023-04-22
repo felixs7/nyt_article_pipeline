@@ -6,7 +6,7 @@ import yaml
 from datetime import datetime
 from nyt_extract import store_nyt_raw 
 from nyt_transform import nyt_transform_raw
-from s3_to_redshift import s3_to_redshift
+from nyt_dags.s3_to_redshift import s3_to_redshift
 from airflow.operators.python import PythonOperator
 
 from airflow.models import Variable

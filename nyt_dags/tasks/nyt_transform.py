@@ -3,7 +3,7 @@ import json
 from datetime import datetime
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 import logging
-from nyt_helpers import transform_nyt_json
+from .nyt_helpers import transform_nyt_json
 
 logger = logging.getLogger("airflow.task")
 

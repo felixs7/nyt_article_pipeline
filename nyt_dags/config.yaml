@@ -1,0 +1,13 @@
+allowed_env_values:
+  - 'prod'
+  - 'qa'
+
+env: 'qa'
+bucket_name_prod: nyt-articles-project-bucket-prod
+bucket_name_qa: nyt-articles-project-bucket-qa
+
+# xfdf
+redshift_db_name_qa: 'dev'
+redshift_db_name_prod: 'prod'
+redshift_landing_schema:  'source'
+full_redshift_dump: 'true' #true
