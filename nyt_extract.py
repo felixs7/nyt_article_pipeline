@@ -9,6 +9,8 @@ import logging
 import pytz
 from botocore.exceptions import ClientError
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+from airflow.models import Variable
+
 
 logger = logging.getLogger("airflow.task")
 
