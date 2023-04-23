@@ -26,13 +26,11 @@ The pipeline supports both production (prod) and quality assurance (qa) environm
 6. Query the source table in Amazon Athena to analyze the top articles data.
 
 The ETL pipeline is scheduled to run daily at 3am UTC using Apache Airflow.
-![raw_bucket](./docs/raw_bucket.png)
 ![prod_bucket](./docs/prod_bucket.png)
 
 ## Environment Handling
 
 The pipeline handles different environments by using Airflow variables to switch between prod and qa environments. This includes separate S3 buckets for raw and processed data, as well as separate Redshift databases for each environment.
-![bucket_prod_qa](./docs/bucket_prod_qa.png)
 
 ## Getting Started
 
