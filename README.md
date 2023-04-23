@@ -3,6 +3,7 @@
 This project is an ETL pipeline using Apache Airflow to fetch the most popular articles from the New York Times API, store the raw JSON data in an S3 bucket, perform basic transformations using Python, store the transformed data as a CSV file in the processed/ folder of the S3 bucket, and load the data into a Redshift table. The data can then be queried from a source table in Amazon Athena. The Airflow server runs on an Ubuntu EC2 instance (t2.medium) and is scheduled to run daily at 3am UTC.
 
 The pipeline supports both production (prod) and quality assurance (qa) environments, with separate S3 buckets and Redshift databases for each environment.
+![dag_view](./docs/dag_view.png)
 
 ## Key Components
 
@@ -11,6 +12,8 @@ The pipeline supports both production (prod) and quality assurance (qa) environm
 3. **Apache Airflow**: Orchestration of the ETL pipeline, running on an Ubuntu EC2 instance (t2.medium).
 4. **Amazon Redshift**: Destination data warehouse for storing the processed data. Separate databases are used for prod and qa environments.
 5. **Amazon Athena**: Querying platform to analyze the stored data.
+
+![ec2](./docs/ec2.png)
 
 ## ETL Workflow
 
@@ -23,10 +26,13 @@ The pipeline supports both production (prod) and quality assurance (qa) environm
 6. Query the source table in Amazon Athena to analyze the top articles data.
 
 The ETL pipeline is scheduled to run daily at 3am UTC using Apache Airflow.
+![raw_bucket](./docs/raw_bucket.png)
+![prod_bucket](./docs/prod_bucket.png)
 
 ## Environment Handling
 
 The pipeline handles different environments by using Airflow variables to switch between prod and qa environments. This includes separate S3 buckets for raw and processed data, as well as separate Redshift databases for each environment.
+![bucket_prod_qa](./docs/bucket_prod_qa.png)
 
 ## Getting Started
 
@@ -36,4 +42,4 @@ The pipeline handles different environments by using Airflow variables to switch
 4. Set up the necessary Airflow connections and variables (e.g., AWS credentials, Redshift connection, S3 bucket names for prod and qa, New York Times API key, etc.).
 5. Deploy the DAG code to the Airflow instance and enable the DAG in the Airflow UI.
 
-
+![athena_query](./docs/athena_query.png)
