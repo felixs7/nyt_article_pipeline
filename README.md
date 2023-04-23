@@ -2,7 +2,7 @@
 
 This project is an ETL pipeline using Apache Airflow to fetch the most popular articles from the New York Times API, store the raw JSON data in an S3 bucket, perform basic transformations using Python, store the transformed data as a CSV file in the processed/ folder of the S3 bucket, and load the data into a Redshift table. The data can then be queried from a source table in Amazon Athena. The Airflow server runs on an Ubuntu EC2 instance (t2.medium) and is scheduled to run daily at 3am UTC.
 
-The pipeline supports both production (prod) and quality assurance (qa) environments, with separate S3 buckets and Redshift databases for each environment.
+The pipeline supports both prod and qa environments, with separate S3 buckets and Redshift databases for each environment.
 ![dag_view](./docs/dag_view.png)
 
 ## Key Components
