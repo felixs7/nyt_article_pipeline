@@ -10,6 +10,7 @@ CREATE TABLE SOURCE.NYT_TOP_ARTICLES (
     byline VARCHAR,
     type CHAR(500),
     title VARCHAR(max),
-    abstract VARCHAR(max)
+    abstract VARCHAR(max),
+    timestamp_api_call BIGINT
 
 );
