@@ -32,7 +32,6 @@ def s3_to_redshift(redshift_db_name,redshift_landing_schema, s3_bucket, file_key
         with conn.cursor() as cursor:
             query = get_copy_query(s3_bucket,redshift_landing_schema, full_file_key)
             cursor.execute(query)
-            row_count = cursor.rowcount
-    logger.info(f"Lifted s3 object {full_file_key} from {s3_bucket} into Redhsift Schema"
+    logger.info(f"Lifted s3 object {full_file_key} from {s3_bucket} into Redhsift Schema "
                  f"{redshift_landing_schema}.")
     return

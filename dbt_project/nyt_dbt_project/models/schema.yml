@@ -1,0 +1,10 @@
+version: 2
+
+models:
+    - name: articles
+      description: "The reporting view of the Article table. Only containing the latest response for an article on a given day."
+      columns:
+          - name: article_id
+            description: "The NYT article ID"
+            tests:
+                - not_null

@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: nyt_source  # This should be a recognizable name for your data source.
+    database: "{% if target.name == 'prod' %}prod{% elif target.name == 'qa' %}dev{% endif %}"
+    schema: source
+
+    tables:
+      - name: NYT_TOP_ARTICLES  # This is the exact name of your table in your database.
+        description: |
+          Table containing all articles, potentially
+          multiple rows per article

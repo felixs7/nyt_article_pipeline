@@ -7,6 +7,7 @@ from tasks.nyt_extract import store_nyt_raw
 from tasks.nyt_transform import nyt_transform_raw
 from tasks.s3_to_redshift import s3_to_redshift
 from airflow.operators.python import PythonOperator
+from airflow.operators.bash import BashOperator
 from airflow.models import Variable
 
 
@@ -30,6 +31,7 @@ def set_airflow_vars(config: dict, env: str):
 config = load_config()
 allowed_values = config["allowed_env_values"]
 env = Variable.get('AIRFLOW_ENVIRONMENT', 'qa') # config['env']
+dbt_path ='/home/ubuntu/airflow/dbt_project/nyt_dbt_project'
 if env not in allowed_values:
     raise ValueError(f"Invalid value for AIRFLOW_ENVIRONMENT. Allowed values are {allowed_values}")
 
@@ -84,7 +86,14 @@ transfer_s3_to_redshift = PythonOperator(
     dag=dag,
 )
 
-store_nyt_raw >> nyt_transform_raw >> transfer_s3_to_redshift
+
+run_dbt_reporting_model = BashOperator(
+    task_id='run_dbt_reporting_model',
+    bash_command=f'cd {dbt_path} && dbt run --target {env}',
+    dag=dag,
+)
+
+store_nyt_raw >> nyt_transform_raw >> transfer_s3_to_redshift >> run_dbt_reporting_model
 
 if __name__ == "__main__":
     dag.test()
