@@ -26,15 +26,21 @@ I use Python, dbt, Airflow, and AWS services such as Redshift, EC2 and VPCS as w
 
 ## ETL Workflow
 
-1. Call the New York Times API and fetch the most popular articles.
+1. Call the New York Times API and fetch the most popular articles on a given day.
 2. Store the raw JSON response in the `raw/` folder of an S3 bucket, using separate buckets for prod and qa environments.
 3. Perform basic transformations on the raw data using Python:
     - Extract relevant fields such as title, abstract, published_date, section, and URL.
 4. Save the transformed data as a CSV file in the `processed/` folder of the S3 bucket.
 5. Use the Redshift COPY command to load the CSV data from the S3 bucket into a Redshift table, using separate databases for prod and qa environments.
-6. Query the source table in Amazon Athena to analyze the top articles data.
+6. (optional) Query the source table in Amazon Athena to analyze the top articles data.
+7. Run a dbt model to create a reporting table
+8. Visualize the findings in Tableau
 
-The ETL pipeline is scheduled to run daily at 3am UTC using Apache Airflow.
+The ETL pipeline is scheduled to run daily at 3am UTC using Apache Airflow. <br>
+
+![Tableau](./docs/Tableau-Workbook.png)
+
+
 ![prod_bucket](./docs/prod_bucket.png)
 
 ## Environment Handling
