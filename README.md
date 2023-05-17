@@ -1,17 +1,26 @@
 # New York Times ETL with Airflow, S3, and Redshift
 
-This project is an ETL pipeline using Apache Airflow to fetch the most popular articles from the New York Times API, store the raw JSON data in an S3 bucket, perform basic transformations using Python, store the transformed data as a CSV file in the processed/ folder of the S3 bucket, and load the data into a Redshift table. The data can then be queried from a source table in Amazon Athena. The Airflow server runs on an Ubuntu EC2 instance (t2.medium) and is scheduled to run daily at 3am UTC.
+A full end-to-end analytics pipeline using modern cloud technologies. <br>
+I use Python, dbt, Airflow, and AWS services such as Redshift, EC2 and VPCS as well as Tableau Desktop as the BI-tool. <br>
 
-The pipeline supports both prod and qa environments, with separate S3 buckets and Redshift databases for each environment.
-![dag_view](./docs/dag_view.png)
+- Project demonstrates a practical ETL pipeline to extract daily article data from the New York Times API
+- It performs transformations using Python, and stores the data in two S3 buckets.
+- The data is then loaded into Redshift, and a dbt model creates a reporting view for analysis.
+- The pipeline is orchestrated using Airflow, running on an Ubuntu EC2 instance.
+- The solution follows best practices for Data Engineering and supports both production and QA environments with separate S3 buckets and Redshift databases.
+![architecture_view](./docs/architecture_screenshot_fs.png)
+![dag_view](./docs/airflow_new.png)
+
 
 ## Key Components
 
-1. **New York Times API**: Source of the most popular articles data.
+1. **New York Times API**: Sourcing the most popular articles on a given day.
 2. **Amazon S3**: Storage for the raw JSON data and transformed CSV files. Separate buckets are used for prod and qa environments.
 3. **Apache Airflow**: Orchestration of the ETL pipeline, running on an Ubuntu EC2 instance (t2.medium).
 4. **Amazon Redshift**: Destination data warehouse for storing the processed data. Separate databases are used for prod and qa environments.
 5. **Amazon Athena**: Querying platform to analyze the stored data.
+6. **dbt**: To create incremental reporting views in Redshift.
+7. **Tableau Desktop**: To visualise the the top articles by type, authors and words. Leveraging Tableau table extensions to do some further NLP analysis based off reporting views.
 
 ![ec2](./docs/ec2.png)
 
